@@ -12,6 +12,10 @@ RUN apt-get -y update && \
 
 CMD ["/sbin/my_init"]
 
+WORKDIR /fuzz/fzwork
+
+RUN mkdir /fuzz/fztools
+
 #build afl-fuzz but not install it
 RUN apt install libtool-bin automake bison libglib2.0-dev -y
 
@@ -34,8 +38,6 @@ RUN  cd /fuzz/fztools/qsym/third_party/z3 && rm -rf /fuzz/fztools/qsym/third_par
 
 RUN python -m pip install --upgrade pip && cd /fuzz/fztools/qsym && make -C qsym/pintool -j$(nproc) && \
     export TARGET=ia32 &&  make -C qsym/pintool -j$(nproc) && cd /fuzz/fztools/qsym/qsym/pintool/codegen && python ./gen_expr_builder.py && python ./gen_expr.py
-
-WORKDIR /fuzz/fzwork
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
