@@ -20,7 +20,7 @@ RUN mkdir /fuzz/fztools
 RUN apt install libtool-bin automake bison libglib2.0-dev -y
 
 RUN wget https://lcamtuf.coredump.cx/afl/releases/afl-latest.tgz -O /fuzz/fztools/afl-latest.tgz && \
-    tar zxvf afl-latest.tgz && rm -rf *.tgz && \
+    cd /fuzz/fztools && tar zxvf afl-latest.tgz && rm -rf *.tgz && \
     cd /fuzz/fztools/afl-2.52b && make && cd /fuzz/fztools/afl-2.52b/qemu_mode && ./build_qemu_support.sh
 
 #build qsym but not install it
