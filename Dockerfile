@@ -35,7 +35,8 @@ RUN  cd /fuzz/ftools/qsym/third_party/z3 && rm -rf /fuzz/ftools/qsym/third_party
 RUN python -m pip install --upgrade pip && cd /fuzz/ftools/qsym && make -C qsym/pintool -j$(nproc) && \
     export TARGET=ia32 &&  make -C qsym/pintool -j$(nproc) && cd /fuzz/ftools/qsym/qsym/pintool/codegen && python ./gen_expr_builder.py && python ./gen_expr.py
 
-WORKDIR /fuzz/fwork
+WORKDIR /fuzz/fzwork
+
 
 CMD ["/sbin/my_init"]
     
