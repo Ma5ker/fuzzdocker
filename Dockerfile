@@ -43,4 +43,4 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY my_start.sh /usr/bin/my_start.sh
 RUN chmod +x /usr/bin/my_start.sh
-CMD ["my_start.sh"]
+ENTRYPOINT "my_start.sh"
