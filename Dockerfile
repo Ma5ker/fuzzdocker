@@ -10,8 +10,6 @@ ENV TZ Asia/Shanghai
 RUN apt-get -y update && \
     apt install git sudo python-pip wget -y
 
-CMD ["/sbin/my_init"]
-
 WORKDIR /fuzz/fzwork
 
 RUN mkdir /fuzz/fztools
@@ -41,6 +39,8 @@ RUN python -m pip install --upgrade pip && cd /fuzz/fztools/qsym && make -C qsym
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY my_start.sh /usr/bin/my_start.sh
-RUN chmod +x /usr/bin/my_start.sh
-ENTRYPOINT "my_start.sh &"
+RUN mkdir -p /etc/my_init.d
+COPY my_start.sh /etc/my_init.d/my_start.sh
+RUN chmod +x /etc/my_init.d/my_start.sh
+
+CMD ["/sbin/my_init"]
